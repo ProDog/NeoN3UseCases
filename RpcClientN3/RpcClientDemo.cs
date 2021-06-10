@@ -7,7 +7,7 @@ using Neo.SmartContract.Native;
 using Neo.Wallets;
 using System;
 
-namespace Neo3Cases
+namespace Neo3Cases.RpcClientTest
 {
     internal class RpcClientDemo
     {
@@ -20,7 +20,7 @@ namespace Neo3Cases
 
         internal void Run()
         {
-            var txid = "0xb7d5f1906ba5bf263d0c8bf8fd4a4bf8d05ed631f395bcb9c8a8e105bac34b85";
+            var txid = "0x3e55711455b12e1765e43212197d0f9bce949a73b3e0a997b439144192e77385";
             var contractHash = "0xf3df263234eb1e913bd0c6e01465ef46e7ed0f98";
             var addr = "NUNtEBBbJkmPrmhiVSPN6JuM7AcE8FJ5sE";
             var blockHash = rpcClient.GetBestBlockHashAsync().Result;
@@ -39,7 +39,7 @@ namespace Neo3Cases
             Console.WriteLine("GetBlockHeader: " + rpcClient.GetBlockHeaderAsync(blockHash).Result.ToJson(ProtocolSettings.Default).ToString());
 
             Console.WriteLine("GetContractState: " + rpcClient.GetContractStateAsync(contractHash).Result.ToJson().ToString());
-            Console.WriteLine("GetNativeContracts: " + rpcClient.GetNativeContractsAsync().Result);
+            Console.WriteLine("GetNativeContracts: " + rpcClient.GetNativeContractsAsync().Result[0].ToJson());
 
             Console.WriteLine("GetRawMempool: " + rpcClient.GetRawMempoolAsync().Result);
             Console.WriteLine("GetRawMempoolBoth: " + rpcClient.GetRawMempoolBothAsync().Result);

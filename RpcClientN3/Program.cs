@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Neo.Network.RPC;
 using System.Security.Cryptography;
+using Neo3Cases.RpcClientTest;
 
 namespace Neo3Cases
 {
@@ -14,7 +15,7 @@ namespace Neo3Cases
     {
         static void Main()
         {
-            RpcClient rpcClient = new RpcClient(new Uri("http://localhost:10332"), null, null, ProtocolSettings.Load("config.json"));
+            RpcClient rpcClient = new RpcClient(new Uri("http://localhost:20332"), null, null, ProtocolSettings.Load("config.json", true));
 
             Console.WriteLine("Open wallet: " + rpcClient.OpenWalletAsync(@"D:\Work\neo_code\neo-node\neo-cli\bin\Debug\net5.0\1.json", "1").Result);
 

@@ -1,7 +1,7 @@
 ﻿using Neo.Network.RPC;
 using System;
 
-namespace Neo3Cases
+namespace Neo3Cases.RpcClientTest
 {
     internal class PolicyAPIDemo
     {

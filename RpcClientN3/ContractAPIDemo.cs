@@ -14,18 +14,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neo3Cases
+namespace Neo3Cases.RpcClientTest
 {
     public class ContractAPIDemo
     {
         ContractClient _contractClient;
         RpcClient _rpcClient;
-
-        private static KeyPair keyPair0 = Neo.Network.RPC.Utility.GetKeyPair("KxuVa318GrRFhLvSvWfz4dZTP7JibKMTPkHFMPrBv2PdA2NvzEJZ");
+        private static KeyPair keyPair0 = Neo.Network.RPC.Utility.GetKeyPair("L4KNK6XahYyBRcqaySvVdkBDmqEeoUqKdXyarH71JwesJ2J2jhiL");
+        //private static KeyPair keyPair0 = Neo.Network.RPC.Utility.GetKeyPair("KxuVa318GrRFhLvSvWfz4dZTP7JibKMTPkHFMPrBv2PdA2NvzEJZ");
         private static KeyPair keyPair1 = Neo.Network.RPC.Utility.GetKeyPair("L3A2sG2mr1afjXEcFuwiMnLnN9hXGLRD981t7ShMFZ3HVfgyPAEU");
         private static KeyPair keyPair2 = Neo.Network.RPC.Utility.GetKeyPair("KzYoUe85ixi82jpoTakpRv8pNCSgBtZ8tQAxZk9ik8BoJaqZPN19");
-        private static UInt160 gasHash = Neo.SmartContract.Native.GasToken.GAS.Hash;
-        private static UInt160 neoHash = Neo.SmartContract.Native.NeoToken.NEO.Hash;
+        private static UInt160 gasHash = Neo.SmartContract.Native.NativeContract.GAS.Hash;
+        private static UInt160 neoHash = Neo.SmartContract.Native.NativeContract.NEO.Hash;
         private static UInt160 nep17Hash = new();
         private static UInt160 multiAccount = new();
 
@@ -40,23 +40,23 @@ namespace Neo3Cases
         {
             multiAccount = Contract.CreateMultiSigContract(2, new ECPoint[] { keyPair0.PublicKey, keyPair1.PublicKey, keyPair2.PublicKey }).ScriptHash;
 
-            DeployContract();
+            //DeployContract();
 
-            InvokeContractTx0();
+            //InvokeContractTx0();
 
-            InvokeContractTx1();
+            //InvokeContractTx1();
 
             InvokeContractTx2();
 
-            InvokeScript();
+            //InvokeScript();
 
-            InvokeFunction1();
+            //InvokeFunction1();
 
-            InvokeFunction2();
+            //InvokeFunction2();
 
-            TransferNep17();
+            //TransferNep17();
 
-            TestNep17API();
+            //TestNep17API();
         }
 
         private void DeployContract()
@@ -94,12 +94,12 @@ namespace Neo3Cases
 
             Signer[] signers = new[] { new Signer { Scopes = WitnessScope.Global, Account = sender } };
 
-            SendInvokeTx(script, signers, keyPair0);
+            SendInvokeTx(script, signers,null, keyPair0);
 
             Console.WriteLine("send NEO.");            
             byte[] script1 = neoHash.MakeScript("transfer", sender, multiAccount, 10, "adada");
 
-            SendInvokeTx(script1, signers, keyPair0);
+            SendInvokeTx(script1, signers,null, keyPair0);
         }
 
         public void InvokeContractTx1()
@@ -117,7 +117,7 @@ namespace Neo3Cases
                 new Signer { Scopes = WitnessScope.Global, Account = account } 
             };
 
-            SendInvokeTx(script, signers, keyPair0, keyPair1);
+            SendInvokeTx(script, signers, null, keyPair0, keyPair1);
         }
 
         public void InvokeContractTx2()
@@ -137,9 +137,29 @@ namespace Neo3Cases
                 100000,
                 "data");
 
-            Signer[] signers = new[] { new Signer { Scopes = WitnessScope.Global, Account = sender } };
+            Signer[] signers = new[]
+            { 
+                //new Signer 
+                //{ Scopes = WitnessScope.Global, Account = sender }, 
+                //new Signer()
+                //{
+                //    Account=UInt160.Parse("0x1c5917b2ccf717fafe059b11c7ee0e01e5bacc32"),
+                ////Account = Contract.CreateSignatureContract(keyPair0.PublicKey).ScriptHash,
+                ////AllowedContracts = new UInt160[] { UInt160.Parse("0xf3df263234eb1e913bd0c6e01465ef46e7ed0f98"), UInt160.Parse("0x782be0763d4da864c216d64737dc4aff88fd9b43"), UInt160.Parse("0x4638f10d3fdc2cce2ea14625dbc1672b2919d85c") },
+                //Scopes = WitnessScope.Global
+                //},
+                new Signer()
+                {
+                Account = Contract.CreateSignatureContract(keyPair0.PublicKey).ScriptHash,
+                AllowedGroups = new ECPoint[] { ECPoint.Parse("0248e7f50d17b4447d8b255677e8e1ab059d6169c012c7a4c60cc5d4bb5796595f", ECCurve.Secp256r1), ECPoint.Parse("02495c03730de9bbbd57edcd83a8dbfc8cd8aab30ef95ee0068f2fa4a3a6e4b7f6", ECCurve.Secp256r1), ECPoint.Parse("023aeccf6586927fbcb36eff3c142396e1315be7233f807952c1f7bc7f7e058aad", ECCurve.Secp256r1) },
+                Scopes = WitnessScope.CustomGroups
+                }
+            };
 
-            SendInvokeTx(script, signers, keyPair0);
+            //TransactionAttribute[] transactionAttributes = new TransactionAttribute[] {  new OracleResponse() { Code = OracleResponseCode.ConsensusUnreachable, Id = 0, Result = Array.Empty<byte>() }};
+            TransactionAttribute[] transactionAttributes = new TransactionAttribute[] { new HighPriorityAttribute { } };
+
+            SendInvokeTx(script, signers, transactionAttributes, keyPair0);
         }
 
         public void InvokeScript()
@@ -205,7 +225,10 @@ namespace Neo3Cases
 
             Signer signer0 = new Signer()
             {
-                Account = Contract.CreateSignatureContract(keyPair0.PublicKey).ScriptHash
+                Account = Contract.CreateSignatureContract(keyPair0.PublicKey).ScriptHash,
+                AllowedContracts = new UInt160[] { UInt160.Parse("0xf3df263234eb1e913bd0c6e01465ef46e7ed0f98"), UInt160.Parse("0x782be0763d4da864c216d64737dc4aff88fd9b43"), UInt160.Parse("0x4638f10d3fdc2cce2ea14625dbc1672b2919d85c") },
+                AllowedGroups = new ECPoint[] { ECPoint.Parse("0248e7f50d17b4447d8b255677e8e1ab059d6169c012c7a4c60cc5d4bb5796595f", ECCurve.Secp256k1), ECPoint.Parse("02495c03730de9bbbd57edcd83a8dbfc8cd8aab30ef95ee0068f2fa4a3a6e4b7f6", ECCurve.Secp256r1), ECPoint.Parse("023aeccf6586927fbcb36eff3c142396e1315be7233f807952c1f7bc7f7e058aad", ECCurve.Secp256r1) },
+                Scopes = WitnessScope.CustomContracts
             };
 
             RpcInvokeResult rpcInvokeResult1 = await _rpcClient.InvokeFunctionAsync(gasHash.ToString(), "transfer", new RpcStack[] { from, to, amount, data }, signer0).ConfigureAwait(false);
@@ -224,10 +247,10 @@ namespace Neo3Cases
 
         }
 
-        private void SendInvokeTx(byte[] script, Signer[] signers, params KeyPair[] keyPair)
+        private void SendInvokeTx(byte[] script, Signer[] signers, TransactionAttribute[] transactionAttributes = null, params KeyPair[] keyPair)
         {
             TransactionManagerFactory factory = new TransactionManagerFactory(_rpcClient);
-            TransactionManager manager = factory.MakeTransactionAsync(script, signers).Result;
+            TransactionManager manager = factory.MakeTransactionAsync(script, signers, transactionAttributes).Result;
 
             foreach (var kp in keyPair)
             {
@@ -250,7 +273,7 @@ namespace Neo3Cases
 
             Signer[] signers = new[] { new Signer { Scopes = WitnessScope.Global, Account = sender } };
 
-            SendInvokeTx(script, signers, keyPair0);
+            SendInvokeTx(script, signers, null, keyPair0);
         }
 
         private void TestNep17API()

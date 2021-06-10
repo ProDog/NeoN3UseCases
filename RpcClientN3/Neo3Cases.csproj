@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Neo" Version="3.0.0-rc3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="protocol.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

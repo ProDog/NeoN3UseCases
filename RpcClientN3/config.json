@@ -2,8 +2,8 @@
   "ApplicationConfiguration": {
     "Logger": {
       "Path": "Logs_{0}",
-      "ConsoleOutput": false,
-      "Active": false
+      "ConsoleOutput": true,
+      "Active": true
     },
     "Storage": {
       "Engine": "LevelDBStore",
@@ -14,14 +14,14 @@
       "WsPort": 20334
     },
     "UnlockWallet": {
-      "Path": "",
-      "Password": "",
-      "IsActive": false
+      "Path": "1.json",
+      "Password": "1",
+      "IsActive": true
     },
     "PluginURL": "https://github.com/neo-project/neo-modules/releases/download/v{1}/{0}.zip"
   },
   "ProtocolConfiguration": {
-    "Magic": 827601742,
+    "Network": 844378958,
     "MillisecondsPerBlock": 15000,
     "MaxTraceableBlocks": 2102400,
     "ValidatorsCount": 7,

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeoN3RpcClientDemo", "NeoN3RpcClientDemo\NeoN3RpcClientDemo.csproj", "{B857B1F6-EF91-41DD-A205-07004EFDB948}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcClient", "..\..\neo_code\neo-modules\src\RpcClient\RpcClient.csproj", "{DC20ED3C-33F1-4E07-8557-0477CD281F2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neo3Cases", "RpcClientN3\Neo3Cases.csproj", "{B857B1F6-EF91-41DD-A205-07004EFDB948}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neo", "..\..\neo_code\neo\src\neo\neo.csproj", "{ECD4C452-2065-4E6E-ADF9-F119E768DBE0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpcClient", "..\..\neo_code\neo-modules\src\RpcClient\RpcClient.csproj", "{6FA65737-C477-4F36-AA68-9B4D81640699}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlamingoN3", "FlamingoN3\FlamingoN3.csproj", "{5275AD0E-3B20-4F42-B0FB-609E06926B06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{B857B1F6-EF91-41DD-A205-07004EFDB948}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B857B1F6-EF91-41DD-A205-07004EFDB948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B857B1F6-EF91-41DD-A205-07004EFDB948}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC20ED3C-33F1-4E07-8557-0477CD281F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC20ED3C-33F1-4E07-8557-0477CD281F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC20ED3C-33F1-4E07-8557-0477CD281F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC20ED3C-33F1-4E07-8557-0477CD281F2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECD4C452-2065-4E6E-ADF9-F119E768DBE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECD4C452-2065-4E6E-ADF9-F119E768DBE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECD4C452-2065-4E6E-ADF9-F119E768DBE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD4C452-2065-4E6E-ADF9-F119E768DBE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA65737-C477-4F36-AA68-9B4D81640699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA65737-C477-4F36-AA68-9B4D81640699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA65737-C477-4F36-AA68-9B4D81640699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA65737-C477-4F36-AA68-9B4D81640699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5275AD0E-3B20-4F42-B0FB-609E06926B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5275AD0E-3B20-4F42-B0FB-609E06926B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5275AD0E-3B20-4F42-B0FB-609E06926B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5275AD0E-3B20-4F42-B0FB-609E06926B06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
