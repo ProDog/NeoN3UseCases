@@ -19,7 +19,7 @@ namespace Neo3Cases.RpcClientTest
             Console.WriteLine("Get Fee Factor: " + policyAPI.GetExecFeeFactorAsync().Result);
             Console.WriteLine("Get Storage Price: " + policyAPI.GetStoragePriceAsync().Result);
             Console.WriteLine("Get Network Fee Per Byte: " + policyAPI.GetFeePerByteAsync().Result);
-            Console.WriteLine("Get Ploicy Blocked Accounts: " + policyAPI.IsBlockedAsync(Neo.SmartContract.Native.GasToken.GAS.Hash).Result);
+            Console.WriteLine("Get Ploicy Blocked Accounts: " + policyAPI.IsBlockedAsync(Neo.SmartContract.Native.NativeContract.GAS.Hash).Result);
         }
     }
 }

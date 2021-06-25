@@ -111,13 +111,13 @@ namespace Neo3Cases.RpcClientTest
                 },
                 new RpcTransferOut
                 {
-                    Asset = GasToken.GAS.Hash,
+                    Asset = NativeContract.GAS.Hash,
                     ScriptHash = newAddr.ToScriptHash(ProtocolSettings.Default.AddressVersion),
                     Value = "12345678"
                 },
                 new RpcTransferOut
                 {
-                    Asset = NeoToken.NEO.Hash,
+                    Asset = NativeContract.NEO.Hash,
                     ScriptHash = newAddr.ToScriptHash(ProtocolSettings.Default.AddressVersion),
                     Value = "1"
                 },
