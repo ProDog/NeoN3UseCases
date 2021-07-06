@@ -63,6 +63,8 @@ namespace Neo3Cases.RpcClientTest
             TestInvokeTx();
         }
 
+
+        //合约 Verify 方法带参数的交易构造示例
         private void TestInvokeTx()
         {
             var network = ProtocolSettings.Load("config.json", true).Network;
@@ -95,16 +97,8 @@ namespace Neo3Cases.RpcClientTest
             };            
 
             var wScript = new byte[0];
-            using (ScriptBuilder sb = new ScriptBuilder())
-            {
-                sb.EmitPush(1);
-                wScript = sb.ToArray();
-            }
-            var contractWitness = new Witness
-            {
-                InvocationScript = wScript,
-                VerificationScript = new byte[0]
-            };
+            using (ScriptBuilder sb = new ScriptBuilder()) { sb.EmitPush(1); wScript = sb.ToArray(); }
+            var contractWitness = new Witness { InvocationScript = wScript, VerificationScript = new byte[0] };
 
             tx.Witnesses = new Witness[] { contractWitness, new Witness { InvocationScript = Array.Empty<byte>(), VerificationScript = userContract.Script } };
 
