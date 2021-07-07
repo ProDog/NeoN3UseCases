@@ -119,26 +119,35 @@ namespace Neo3Cases.RpcClientTest
         private void DeployContract()
         {
             Console.WriteLine("deploy contract.");
+
+            //合约路径
             string path = @"D:\Work\TestCode\NeoN3Contract\Nep17Contract\bin\sc";
             string nefFilePath = path + "\\Nep17Contract.nef";
             string manifestFilePath = path + "\\Nep17Contract.manifest.json";
 
+            //构造 contractClient
+            RpcClient rpcClient = new RpcClient(new Uri("http://localhost:20332"), null, null, ProtocolSettings.Load("config.json", true));
+            ContractClient contractClient = new ContractClient(rpcClient);
+
+            //读取合约文件 nef 和 manifest
             NefFile nefFile;
             using (var stream = new BinaryReader(File.OpenRead(nefFilePath), Encoding.UTF8, false))
             {
                 nefFile = stream.ReadSerializable<NefFile>();
             }
-
             var mani = File.ReadAllBytes(manifestFilePath);
             ContractManifest manifest = ContractManifest.Parse(mani);
 
-            var tx = _contractClient.CreateDeployContractTxAsync(nefFile.ToArray(), manifest, keyPair0).Result;
-            _rpcClient.SendRawTransactionAsync(tx);
+            //构造交易
+            var tx = contractClient.CreateDeployContractTxAsync(nefFile.ToArray(), manifest, keyPair0).Result;
 
+            //发交易
+            rpcClient.SendRawTransactionAsync(tx);
+
+            //合约 hash
             var contractHash = Neo.SmartContract.Helper.GetContractHash(tx.Sender, nefFile.CheckSum, manifest.Name);
-            Console.WriteLine("contract hash:" + Neo.SmartContract.Helper.GetContractHash(tx.Sender, nefFile.CheckSum, manifest.Name));
-            nep17Hash = contractHash;
-
+            Console.WriteLine("contract hash:" + contractHash);
+            
             Console.WriteLine($"Transaction {tx.Hash} is broadcasted!");
         }
 
